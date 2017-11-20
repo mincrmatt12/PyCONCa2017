@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/static/css/loading-spinner.css">
+        <link rel="stylesheet" href="/static/css/loading-modal.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.0/sweetalert.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .affix {
+              top: 0;
+              z-index:1000;
+              width: 100%;
+            }
+            #button-container {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+            #sub-button {
+                transform: translateX(-15px) translateY(-15px);
+                
+            }
+            
+            .round-button {
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+            }
+            {% include 'login-modal-style.html' %}
+        </style>
+    </head>
+    <body>
+        <div id="jumbotron-height-wrapper">
+            <div class="jumbotron" style="margin-bottom: 1px">
+                <h1 class="text-center">Creating an account.</h1>
+                <p class="text-right small" style="transform: translateX(-5px);"></p>
+            </div>
+        </div>    
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2>Create account</h2>
+                </div>
+                <div class="panel-body">
+            
+                        <form id="makeuser">
+                            <div class="form-group">
+                                <label for="fulname">Full name (request M2 if this is wrong) </label>
+                                <input type="text" class="form-control" readonly id="fulname" placeholder="Oops! Looks like I goofed up here!" value="{{ data.fullname }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="uname">Username</label>
+                                <input type="text" name="username" class="form-control" id="uname" placeholder="Please type a username" required>
+                                <p class="help-block">You will use this to log in</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="pword1">Password</label>
+                                <input type="password" class="form-control" id="pword1" placeholder="Please type a password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pword2">Confirm password</label>
+                                <input name="password" type="password" class="form-control" id="pword2" placeholder="Please repeat the password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="mail" class="form-control" id="email" placeholder="Type an email. Default is the email the signup link was sent to" value="{{ data.email }}">
+                                <p class="help-block">Anything email-related is sent here. <span class="text-danger">This is unchangable</span></p>
+                            </div>
+                            <input type="hidden" name="token" value="{{ data.token }}">
+                            <button type="button" id="create" class="btn btn-block btn-success">Create account!</button>
+                        </form>
+                    </div>
+            </div>
+        </div>
+        <script>
+            $("#create").click(function () {
+                if ($("#username").val() == ''){
+                    return false;
+                }
+                if ($("#pword1").val() == $("#pword2").val()){
+                    $("#create").attr('disabled', true).html('Creating...');
+                    $.ajax({
+                        url: '/create_account_go',
+                        method: 'POST',
+                        data: $("#makeuser").serialize(),
+                        success: function () {
+                            swal({
+                               title: 'Success!',
+                               text: 'Created account successfully! Press OK to go to the home page!',
+                               allowEscapeKey: false,
+                               type: 'success'
+                            }, function () {
+                                location.replace('/');
+                            });
+                        }
+                    });
+                }
+                else {
+                    sweetAlert("Oops...", "Please make sure that the passwords match!", "error");
+                }
+            });
+        </script>
+    </body>
+    </html>
+    

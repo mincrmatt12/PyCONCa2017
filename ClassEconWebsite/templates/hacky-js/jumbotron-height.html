@@ -1,0 +1,7 @@
+        <script>
+            // Hacky fix for data-offset-top.
+            $( window ).resize(function() {
+                $(".navbar").data("bs.affix").options.offset = $("#jumbotron-height-wrapper").height();
+            });
+            $(document).ready(function () {$(".navbar").data("bs.affix").options.offset = $("#jumbotron-height-wrapper").height();});
+        </script>

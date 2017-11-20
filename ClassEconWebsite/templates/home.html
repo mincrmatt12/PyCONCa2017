@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/static/css/loading-spinner.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- This will get moved. Soon-ish(tm) -->
+        <style>
+            .affix {
+              top: 0;
+              z-index:1000;
+              width: 100%;
+            }
+            #button-container {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+            #sub-button {
+                transform: translateX(-15px) translateY(-15px);
+                
+            }
+            
+            .round-button {
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+            }
+            {% include 'login-modal-style.html' %}
+        </style>
+    </head>
+    
+    <body>
+        
+        <div id="jumbotron-height-wrapper">
+            <div class="jumbotron" style="margin-bottom: 1px">
+                <h1 class="text-center">Welcome to the SMCS grade 7 class website.</h1>
+                <p class="text-right small" style="transform: translateX(-5px);">by M2</p>
+            </div>
+        </div>    
+        {% include 'navbar.html' %}
+        {% include 'login-modal.html' %}
+        {% include 'editor-modal.html' %}
+        
+        {% include 'modals/yesno-modal.html' %}
+        
+        <script>
+            function scrollToTop(){
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 650);
+            }
+            {% autoescape false %}
+            var is_logged_in = {{ get_is_logged_in() }};
+            var username = {{ get_username() }};
+            var authlevel = {{ get_authlevel() }};
+            {% endautoescape %}
+        </script>
+        
+        
+        
+        <div class="container">
+            {% include 'flash.html' %}
+            <div class="row">
+                <div class="col-sm-3 hidden-xs">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Calendar</div>
+                        <div class="panel-body">
+                            &lt;insert calendar here&gt;
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h2 class="text-center">Blog</h2></div>
+                        <div class="panel-body" id="blog-body">
+                            <p id="loadmarker" class="text-center small">Loading posts... please wait...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 hidden-xs">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Right section</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            $(window).resize(function () {
+                $("div.panel-body img").css("max-width", $("div.panel-default").width() - parseInt($("div.panel-body").css("padding"), 10)*4);
+            });
+            $("#home_navlink").addClass("active");
+        </script>
+        
+        <script>
+            function addClicksForDeletes(){
+                $(".deleteLink").click(function () {
+                    var myID = $(this).data("delete-id");
+                    $("#yesnoModal").one("yesno.yes", function () {
+                        $.ajax({
+                           url: "/blog_delete/" + myID
+                        });
+                        location.reload();
+                    });
+                    openYesNo("Are you sure?", "Are you sure you want to delete this post (this can be undone from the account page)");
+                });
+                
+            }
+        
+            // Hacky fix for data-offset-top.
+            $( window ).resize(function() {
+                $(".navbar").data("bs.affix").options.offset = $("#jumbotron-height-wrapper").height();
+            });
+            $(document).ready(function () {$(".navbar").data("bs.affix").options.offset = $("#jumbotron-height-wrapper").height();});
+            
+            //Autoscroll
+            
+            var curr_page = 0;
+            var max_page = undefined;
+            
+            var _throttleTimer = null;
+            var _throttleDelay = 100;
+            var $window = $(window);
+            var $document = $(document);
+            
+            function ScrollHandler(e) {
+                //throttle event:
+                clearTimeout(_throttleTimer);
+                _throttleTimer = setTimeout(function () {
+            
+                    //do work
+                    if ($window.scrollTop() + $window.innerHeight() > $document.height() - 30) {
+                        
+                        
+                        if (curr_page > max_page) {
+                            $("#loadmarker").html("No more posts!");
+                            $window.off('scroll', ScrollHandler);
+                        }
+                        else {
+                            $("#loadmarker").html('Loading more posts... <div class="windows8"><div class="wBall" id="wBall_1"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_2"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_3"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_4"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_5"><div class="wInnerBall"></div></div></div>');
+                            $.ajax({
+                                url: "/blog_internal/" + curr_page,
+                                success: function (r, c, s) {
+                                    $(r).insertBefore("#loadmarker");
+                                    $('[data-toggle="tooltip"]').tooltip(); 
+                                    addClicksForDeletes();
+                                    $("div.panel-body img").css("max-width", $("div.panel-default").width() - parseInt($("div.panel-body").css("padding"), 10)*4);
+                                }
+                            });
+                        }
+                        curr_page += 1;
+                        
+                    }
+            
+                }, _throttleDelay);
+            }
+            
+            $.ajax({
+                url: "/blog_internal_count",
+                success: function ( r, c, x) {
+                    max_page = parseInt(r, 10);
+                    
+                    if (max_page > 0){
+                        $window
+                        .off('scroll', ScrollHandler)
+                        .on('scroll', ScrollHandler);
+                        
+                        if (curr_page > max_page) {
+                            $("#loadmarker").html("No more posts!");
+                            $window.off('scroll', ScrollHandler);
+                        }
+                        $("#loadmarker").html('Loading more posts... <div class="windows8"><div class="wBall" id="wBall_1"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_2"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_3"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_4"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_5"><div class="wInnerBall"></div></div></div>');
+                        $.ajax({
+                            url: "/blog_internal/" + curr_page,
+                            success: function (r, c, s) {
+                                $(r).insertBefore("#loadmarker");
+                                $('[data-toggle="tooltip"]').tooltip(); 
+                                addClicksForDeletes();
+                                $("div.panel-body img").css("max-width", $("div.panel-default").width() - parseInt($("div.panel-body").css("padding"), 10)*4);
+                            }
+                        });
+                        curr_page += 1;
+                    }
+                    else {
+                        $("#loadmarker").html("No posts to show!");
+                    }
+                }
+            });
+            
+            
+            
+        </script>
+        <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip(); 
+        });
+        
+        
+        </script>
+        <div id="button-container">
+            <div class="pull-right" id="sub-button">
+                <button id="create-post-start-button" type="button" class="btn btn-primary round-button" data-toggle="tooltip" data-placement="top" title="Create a new blog post"><span class="glyphicon glyphicon-plus"></span></button>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <script>
+            if (is_logged_in == false){
+                $("#button-container").css("display", "none");
+            }
+            else if (is_logged_in == true && (authlevel & 4) != 4){
+                 $("#button-container").css("display", "none");
+            }
+            else {
+                $("#create-post-start-button").click(function () {
+                   $("#post-editor-modal").modal(); 
+                   
+                });
+            }
+        </script>
+    </body>
+</html>

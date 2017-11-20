@@ -1,0 +1,41 @@
+        <div class="nav-wrapper">
+        <nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="{% block navbar_height_count %}309{% endblock %}">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Grade 7</a>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span> 
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar">
+                  <ul class="nav navbar-nav">
+                    <li id="home_navlink"><a href="/">Home</a></li>
+                    <li id="cal_navlink"><a href="#">Calendar <span class="label label-danger">Not ready yet!</span></a></li>
+                    <li id="fq_navlink" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Forums and Questions<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/forums">Forums</a></li>
+                        <li><a href="#">Questions <span class="label label-danger">Not ready yet!</span></a></li>
+                    </ul>
+                    </li> 
+                    <li id="webs_navlink"><a class="disabled" href="#">Website Suggestions <span class="label label-danger">Almost ready!</span></a></li> 
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                      {% autoescape false %}
+                      {{ get_login_message() }}
+                      {% endautoescape %}
+                  </ul>
+                </div>
+            </div>
+        </nav>
+        </div>
+        
+        <script>
+            $("nav").on("affix.bs.affix", function () {
+                $(".container").css("margin-top", (parseInt($(".nav-wrapper").height())+10)*2);
+            });
+            $("nav").on("affix-top.bs.affix", function () {
+                $(".container").css("margin-top", 0);
+            });
+        </script>

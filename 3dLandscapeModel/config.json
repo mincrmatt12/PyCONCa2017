@@ -1,0 +1,21 @@
+{
+  "window_info": {
+    "fov": 90,
+    "window_size": [
+      1024,
+      768
+    ],
+    "full_screen": false
+  },
+  "mouse_sensitivity": 1.9,
+  "clear_color": [
+    0.6,
+    0.6,
+    1.0,
+    1.0
+  ],
+  "walking_speed": 0.15,
+  "gravity": 0.1,
+  "terminal_velocity": -0.25,
+  "jump_speed": 1
+}

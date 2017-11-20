@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/static/css/loading-spinner.css">
+        <link rel="stylesheet" href="/static/css/loading-modal.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .table > tbody > tr:hover {
+              background-color: #f5f5f5;
+             }
+             .table > tbody {
+                 /* Todo: find color :) */
+             }
+             .table-specialhead > thead {
+                 background-color: #dddddd;
+             }
+        </style>
+        <style>
+            .affix {
+              top: 0;
+              z-index:1000;
+              width: 100%;
+            }
+            #button-container {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+            #sub-button {
+                transform: translateX(-15px) translateY(-15px);
+                
+            }
+            
+            .round-button {
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+            }
+            {% include 'login-modal-style.html' %}
+        </style>
+    </head>
+    <body>
+        <div id="jumbotron-height-wrapper">
+            <div class="jumbotron" style="margin-bottom: 1px">
+                <h1 class="text-center">Use the forums to post stuff, as long as it doesn't violate the accetable use policy.</h1>
+                <p class="text-right small" style="transform: translateX(-5px);">(well, we're not as strict here, but still, don't go posting stuff that is inappropriate)</p>
+            </div>
+        </div>    
+        {% include 'navbar.html' %}
+        {% include 'login-modal.html' %}
+        <script src="/static/js/jumbotron-height-fix.js"></script>
+        <script>
+            $("#fq_navlink").addClass("active");    
+        </script>
+        <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip(); 
+        });
+        
+        
+        </script>
+        <div class="container">
+            {% include 'flash.html' %}
+            
+                            <div class="list-group">
+                                <h1 class="list-group-item active text-center">Forums</h1>
+                                <a class="list-group-item" href="/forum/section/math">
+                                    <h3>Math</h3>
+                                    <p><span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-remove"></span> <span class="glyphicon glyphicon-minus"></span> Anything related to math goes here, such as howtos, but not questions. We have a seperate page devoted to questions.</p>
+                                </a>
+                                <a class="list-group-item" href="/forum/section/sci">
+                                    <h3>Science</h3>
+                                    <p><span class="glyphicon glyphicon-fire"></span> <span class="glyphicon glyphicon-leaf"></span> Anything related to science goes here, such as experiments, but not questions.</p>
+                                </a>
+                                <a class="list-group-item" href="/forum/section/fr">
+                                    <h3>French</h3>
+                                    <p><span class="glyphicon glyphicon-pencil"></span> Anything related to french goes in here, but no questions.</p>
+                                </a>
+                                <a class="list-group-item" href="/forum/section/cecon">
+                                    <h3>Classroom Economy</h3>
+                                    <p><span class="glyphicon glyphicon-piggy-bank"></span> Anything related to the classroom economy goes in here, but no questions or buisnesses may be put here.</p>
+                                </a>
+                                <a class="list-group-item" href="/forum/section/stuff">
+                                    <h3>Plain ol' Stuff</h3>
+                                    <p>Anything <strong>but questions</strong> is allowed in here.</p>
+                                </a>
+                                
+                            </div>
+                       
+        </div>
+    </body>
+        

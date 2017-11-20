@@ -1,0 +1,5 @@
+random_thing = 5
+
+Log random_thing + 2
+
+Trigger 6 On 3 With "abc", 123

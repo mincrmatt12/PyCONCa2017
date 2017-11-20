@@ -1,0 +1,16 @@
+water_texture = RequireTexture("textures/water.png")
+deck_texture = RequireTexture("textures/deck.png")
+
+status = True
+
+when Player.Move do
+    distance = ObjectDistanceFromPlayer("water2")
+    if distance <= 5 and status == False do
+        BoxSetTexture("water2", water_texture)
+        status = True
+    end
+    elseif distance > 5 and status == True do
+        BoxSetTexture("water2", deck_texture)
+        status = False
+    end
+end

@@ -1,0 +1,12 @@
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<script>
+    $(function () {
+    {% for message in messages %}
+        t = $('<div class="alert alert-info"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>{{ message }}</div>');
+        t.prependTo("div.container");
+    {% endfor %}
+    });
+</script>
+{% endif %}
+{% endwith %}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/static/css/loading-spinner.css">
+        <link rel="stylesheet" href="/static/css/loading-modal.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .affix {
+              top: 0;
+              z-index:1000;
+              width: 100%;
+            }
+            #button-container {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+            #sub-button {
+                transform: translateX(-15px) translateY(-15px);
+                
+            }
+            
+            .round-button {
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+            }
+            {% include 'login-modal-style.html' %}
+        </style>
+    </head>
+    <body>
+        <div id="jumbotron-height-wrapper">
+            <div class="jumbotron" style="margin-bottom: 1px">
+                <h1 class="text-center">Use the forums to post stuff, as long as it doesn't violate the accetable use policy.</h1>
+                <p class="text-right small" style="transform: translateX(-5px);">(well, we're not as strict here, but still, don't go posting stuff that is inappropriate)</p>
+            </div>
+        </div>    
+        {% include 'navbar.html' %}
+        {% include 'login-modal.html' %}
+        {% include 'forum-editor-modal.html' %}
+        {% include 'modals/yesno-modal.html' %}
+        <script src="/static/js/jumbotron-height-fix.js"></script>
+        <script>
+            $("#fq_navlink").addClass("active");
+            $(window).resize(function () {
+                $("div.panel-body img").css("max-width", $("div.panel-default").width() - parseInt($("div.panel-body").css("padding"), 10)*2);
+            });
+            $(function () {
+                $("div.panel-body img").css("max-width", $("div.panel-default").width() - parseInt($("div.panel-body").css("padding"), 10)*2);
+            })
+        </script>
+        <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip(); 
+        });
+        
+        
+        </script>
+        <div class="container">
+            {% include 'flash.html' %}
+            <div class="panel panel-default">
+                    <div class="panel-heading">
+                    <h2>{{ post_data["Title"] }}</h2>
+                    {% autoescape false %}
+                    {{ post_data["DotDot"] }}
+                    
+                    <p class="text-left">by <img class="icon-user-mini img-circle" src="/user_icon/{{ post_data['AuthorIcon'] }}"> {{ post_data["AuthorTags"] }}</p>
+                    
+                </div>
+                <div class="panel-body" id="ththread">
+                    {{ post_data["Body"] }}
+                    {% endautoescape %}
+                </div>
+            </div>
+        </div>
+        <script>
+        {% autoescape false %}
+            var id={{ post_data["ID"] }};
+            var title='{{ post_data["Title"] }}';
+            var tags = '{{ post_data["Tags"] }}';
+            var body = $("#ththread").html();
+            $(".editLink").click(function () {
+                $("#forum-edit-editor-modal").modal();
+            });
+            $(".deleteLink").click(function (){
+                openYesNo("Are you sure?", "Are you sure you want to <strong> permanently </strong> delete this thread?");
+                $("#yesnoModal").one("yesno.yes", function () {
+                    $.ajax({
+                       url: "/forum/delete/" + id,
+                       success: function (a, b, c) {
+                           location.replace("/forums");
+                       },
+                       error: function(r, s, e) {
+                           location.reload();
+                       }
+                    });
+                });
+            });
+        {% endautoescape %}
+        </script>
+    </body>
+    </html>
+    

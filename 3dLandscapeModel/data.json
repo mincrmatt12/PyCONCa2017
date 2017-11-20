@@ -1,0 +1,1359 @@
+{
+  "geometry": [
+    {
+      "type": "cube",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "size": [
+        63,
+        1,
+        115
+      ],
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "ref": "floor",
+      "texture": "textures/grass.png",
+      "tex_sides": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "tex_size": [
+        2,
+        2
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        0,
+        1,
+        -1
+      ],
+      "size": [
+        63,
+        6,
+        1
+      ],
+      "ref": "fence1",
+      "texture": "textures/fence.png",
+      "tex_size": [
+        10,
+        1
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        63,
+        1,
+        0
+      ],
+      "size": [
+        1,
+        6,
+        115
+      ],
+      "ref": "fence2",
+      "texture": "textures/fence.png",
+      "tex_size": [
+        20,
+        1
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        32,
+        1,
+        115
+      ],
+      "size": [
+        31,
+        6,
+        1
+      ],
+      "ref": "fence3",
+      "texture": "textures/fence.png",
+      "tex_size": [
+        5,
+        1
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        -1,
+        1,
+        0
+      ],
+      "size": [
+        1,
+        6,
+        25
+      ],
+      "ref": "fence4",
+      "texture": "textures/fence.png",
+      "tex_size": [
+        3,
+        1
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        0,
+        1,
+        25
+      ],
+      "size": [
+        28,
+        22,
+        11
+      ],
+      "ref": "wall1",
+      "texture": "textures/brick.png"
+    },
+    {
+      "type": "cube",
+      "position": [
+        0,
+        1,
+        36
+      ],
+      "size": [
+        13,
+        22,
+        79
+      ],
+      "ref": "wall2",
+      "texture": "textures/brick.png",
+      "tex_size": [
+        7,
+        1
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        13,
+        1,
+        111
+      ],
+      "size": [
+        15,
+        22,
+        5
+      ],
+      "ref": "wall3",
+      "texture": "textures/brick.png"
+    },
+    {
+      "type": "cube",
+      "position": [
+        28,
+        1,
+        111
+      ],
+      "size": [
+        4,
+        3,
+        5
+      ],
+      "ref": "stair1_1",
+      "color": [
+        87,
+        87,
+        87
+      ],
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        13,
+        1,
+        36
+      ],
+      "size": [
+        19,
+        3,
+        75
+      ],
+      "ref": "deck1",
+      "texture": "textures/deck.png",
+      "tex_size": [
+        1,
+        4
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        28,
+        1,
+        33
+      ],
+      "size": [
+        4,
+        1.5,
+        3
+      ],
+      "ref": "stair_2",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        32,
+        1,
+        107
+      ],
+      "size": [
+        2.5,
+        1.5,
+        4
+      ],
+      "texture": "textures/deck.png",
+      "ref": "deck_step1"
+    },
+    {
+      "type": "cube",
+      "position": [
+        13,
+        1,
+        91
+      ],
+      "size": [
+        3,
+        22,
+        3
+      ],
+      "ref": "wall_dohickey1",
+      "texture": "textures/brick.png",
+      "tex_size": [
+        1,
+        4
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        13,
+        1,
+        56
+      ],
+      "size": [
+        3,
+        22,
+        3
+      ],
+      "ref": "wall_dohickey2",
+      "texture": "textures/brick.png",
+      "tex_size": [
+        1,
+        4
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        13,
+        1,
+        71
+      ],
+      "size": [
+        3,
+        22,
+        6
+      ],
+      "ref": "wall_dohickey3",
+      "texture": "textures/brick.png",
+      "tex_size": [
+        1,
+        4
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        21,
+        1,
+        70
+      ],
+      "size": [
+        10.5,
+        4.8,
+        33
+      ],
+      "ref": "water",
+      "texture": "textures/water.png",
+      "tex_size": [
+        1,
+        2
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        31.5,
+        4,
+        70
+      ],
+      "size": [
+        0.5,
+        2,
+        33.5
+      ],
+      "texture": "textures/deck.png",
+      "ref": "pool_rim1",
+      "tex_size": [
+        4,
+        0.2
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        20.5,
+        4,
+        70
+      ],
+      "size": [
+        0.5,
+        2,
+        33
+      ],
+      "texture": "textures/deck.png",
+      "ref": "pool_rim2",
+      "tex_size": [
+        4,
+        0.2
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        20.5,
+        4,
+        103
+      ],
+      "size": [
+        11,
+        2,
+        0.5
+      ],
+      "texture": "textures/deck.png",
+      "ref": "pool_rim3",
+      "tex_size": [
+        4,
+        0.2
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        20.5,
+        4,
+        69.5
+      ],
+      "size": [
+        8,
+        2,
+        0.5
+      ],
+      "texture": "textures/deck.png",
+      "ref": "pool_rim4",
+      "tex_size": [
+        1,
+        0.2
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        28.5,
+        4,
+        69.5
+      ],
+      "size": [
+        3.5,
+        3,
+        0.5
+      ],
+      "texture": "textures/stones.jpeg",
+      "ref": "pool_rim5"
+    },
+    {
+      "type": "cube",
+      "position": [
+        28,
+        4,
+        64
+      ],
+      "size": [
+        0.5,
+        3,
+        6
+      ],
+      "ref": "poll_rim6",
+      "texture": "textures/stones.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        31.5,
+        4,
+        64
+      ],
+      "size": [
+        0.5,
+        3,
+        6
+      ],
+      "ref": "poll_rim7",
+      "texture": "textures/stones.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        28.5,
+        4,
+        63.5
+      ],
+      "size": [
+        3.5,
+        3,
+        0.5
+      ],
+      "texture": "textures/stones.jpeg",
+      "ref": "pool_rim8"
+    },
+    {
+      "type": "cube",
+      "position": [
+        28.5,
+        4,
+        64
+      ],
+      "size": [
+        3,
+        2.85,
+        5.5
+      ],
+      "ref": "water2",
+      "texture": "textures/water.png"
+    },
+    {
+      "type": "cube",
+      "position": [
+        26.5,
+        4,
+        68
+      ],
+      "size": [
+        1.5,
+        2,
+        1.5
+      ],
+      "ref": "pool_hot_tub_step",
+      "texture": "textures/deck.png",
+      "tex_size": [
+        0.25,
+        0.5
+      ]
+    },
+    {
+      "type": "cube",
+      "position": [
+        25.5,
+        4,
+        67
+      ],
+      "size": [
+        2.5,
+        1,
+        2.5
+      ],
+      "ref": "pool_hot_tub_step2",
+      "texture": "textures/deck.png",
+      "tex_size": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "type": "extrude",
+      "position": [
+        0,
+        1,
+        0
+      ],
+      "height": 1.5,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          8,
+          0
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          0,
+          8
+        ]
+      ],
+      "wrap": true,
+      "ref": "potter1",
+      "texture": "textures/deck.png"
+    },
+    {
+      "type": "cube",
+      "position": [
+        0,
+        2.5,
+        0
+      ],
+      "size": [
+        4,
+        1.5,
+        0.5
+      ],
+      "ref": "potter1_soil_box_side1",
+      "texture": "textures/deck.png"
+    },
+    {
+      "type": "cube",
+      "position": [
+        0,
+        2.5,
+        0
+      ],
+      "size": [
+        0.5,
+        1.5,
+        4
+      ],
+      "ref": "potter1_soil_box_side2",
+      "texture": "textures/deck.png"
+    },
+    {
+      "type": "cube",
+      "position": [
+        0,
+        2.5,
+        4
+      ],
+      "size": [
+        4.5,
+        1.5,
+        0.5
+      ],
+      "ref": "potter1_soil_box_side3",
+      "texture": "textures/deck.png"
+    },
+    {
+      "type": "cube",
+      "position": [
+        4,
+        2.5,
+        0
+      ],
+      "size": [
+        0.5,
+        1.5,
+        4
+      ],
+      "ref": "potter1_soil_box_side4",
+      "texture": "textures/deck.png"
+    },
+    {
+      "type": "cube",
+      "position": [
+        0.5,
+        2.5,
+        0.5
+      ],
+      "size": [
+        3.5,
+        1.15,
+        3.5
+      ],
+      "ref": "potter1_soil",
+      "texture": "textures/dirt.jpeg"
+    },
+    {
+      "type": "extrude",
+      "position": [
+        55,
+        1,
+        107
+      ],
+      "height": 1.5,
+      "points": [
+        [
+          8,
+          8
+        ],
+        [
+          0,
+          8
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          8,
+          0
+        ]
+      ],
+      "wrap": true,
+      "texture": "textures/deck.png",
+      "ref": "potter2"
+    },
+    {
+      "type": "cube",
+      "position": [
+        59,
+        2.5,
+        111
+      ],
+      "size": [
+        4,
+        1.5,
+        0.5
+      ],
+      "ref": "potter2_soil_box_side1",
+      "texture": "textures/deck.png"
+    },
+    {
+      "type": "cube",
+      "position": [
+        59,
+        2.5,
+        111
+      ],
+      "size": [
+        0.5,
+        1.5,
+        4
+      ],
+      "ref": "potter2_soil_box_side2",
+      "texture": "textures/deck.png"
+    },
+    {
+      "type": "cube",
+      "position": [
+        62.5,
+        2.5,
+        111
+      ],
+      "size": [
+        0.5,
+        1.5,
+        4
+      ],
+      "ref": "potter2_soil_box_side3",
+      "texture": "textures/deck.png"
+    },
+    {
+      "type": "cube",
+      "position": [
+        59.5,
+        2.5,
+        114.5
+      ],
+      "size": [
+        4,
+        1.5,
+        0.5
+      ],
+      "ref": "potter2_soil_box_side4",
+      "texture": "textures/deck.png"
+    },
+    {
+      "type": "cube",
+      "position": [
+        59.5,
+        2.5,
+        111.5
+      ],
+      "size": [
+        3.5,
+        1.15,
+        3.5
+      ],
+      "ref": "potter2_soil",
+      "texture": "textures/dirt.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        20.2,
+        4,
+        36
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing1_stair1",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        19.4,
+        4.36,
+        36
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing1_stair2",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        18.6,
+        4.72,
+        36
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing1_stair3",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        17.8,
+        5.08,
+        36
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing1_stair4",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        17,
+        5.44,
+        36
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing1_stair5",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        16.2,
+        5.8,
+        36
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing1_stair6",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        15.4,
+        6.16,
+        36
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing1_stair7",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        14.6,
+        6.52,
+        36
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing1_stair8",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        13.8,
+        6.88,
+        36
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing1_stair9",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        13,
+        7.24,
+        36
+      ],
+      "size": [
+        0.8,
+        0.36,
+        10
+      ],
+      "ref": "fire_escape1_landing1",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        13.8,
+        7.6,
+        41
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing2_step1",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        14.6,
+        7.96,
+        41
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing2_step2",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        15.4,
+        8.32,
+        41
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing2_step3",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        16.2,
+        8.68,
+        41
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing2_step4",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        17,
+        9.04,
+        41
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing2_step5",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        17.8,
+        9.4,
+        41
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing2_step6",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        18.6,
+        9.76,
+        41
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing2_step7",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        19.4,
+        10.12,
+        41
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing2_step8",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "type": "cube",
+      "position": [
+        20.2,
+        10.48,
+        41
+      ],
+      "size": [
+        0.8,
+        0.36,
+        5
+      ],
+      "ref": "fire_escape1_landing2_step9",
+      "texture": "textures/metal.jpeg"
+    },
+    {
+      "position": [
+        20.2,
+        4,
+        104
+      ],
+      "ref": "fire_escape2_landing1_stair1",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        2
+      ]
+    },
+    {
+      "position": [
+        19.4,
+        4.36,
+        104
+      ],
+      "ref": "fire_escape2_landing1_stair2",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        2
+      ]
+    },
+    {
+      "position": [
+        18.6,
+        4.72,
+        104
+      ],
+      "ref": "fire_escape2_landing1_stair3",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        2
+      ]
+    },
+    {
+      "position": [
+        17.8,
+        5.08,
+        104
+      ],
+      "ref": "fire_escape2_landing1_stair4",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        2
+      ]
+    },
+    {
+      "position": [
+        17,
+        5.44,
+        104
+      ],
+      "ref": "fire_escape2_landing1_stair5",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        2
+      ]
+    },
+    {
+      "position": [
+        16.2,
+        5.8,
+        104
+      ],
+      "ref": "fire_escape2_landing1_stair6",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        2
+      ]
+    },
+    {
+      "position": [
+        15.4,
+        6.16,
+        104
+      ],
+      "ref": "fire_escape2_landing1_stair7",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        2
+      ]
+    },
+    {
+      "position": [
+        14.6,
+        6.52,
+        104
+      ],
+      "ref": "fire_escape2_landing1_stair8",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        2
+      ]
+    },
+    {
+      "position": [
+        13.8,
+        6.88,
+        104
+      ],
+      "ref": "fire_escape2_landing1_stair9",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        2
+      ]
+    },
+    {
+      "position": [
+        13,
+        7.24,
+        104
+      ],
+      "ref": "fire_escape2_landing1",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        10
+      ]
+    },
+    {
+      "position": [
+        13.8,
+        7.6,
+        106
+      ],
+      "ref": "fire_escape2_landing2_step1",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        5
+      ]
+    },
+    {
+      "position": [
+        14.6,
+        7.96,
+        106
+      ],
+      "ref": "fire_escape2_landing2_step2",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        5
+      ]
+    },
+    {
+      "position": [
+        15.4,
+        8.32,
+        106
+      ],
+      "ref": "fire_escape2_landing2_step3",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        5
+      ]
+    },
+    {
+      "position": [
+        16.2,
+        8.68,
+        106
+      ],
+      "ref": "fire_escape2_landing2_step4",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        5
+      ]
+    },
+    {
+      "position": [
+        17,
+        9.04,
+        106
+      ],
+      "ref": "fire_escape2_landing2_step5",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        5
+      ]
+    },
+    {
+      "position": [
+        17.8,
+        9.4,
+        106
+      ],
+      "ref": "fire_escape2_landing2_step6",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        5
+      ]
+    },
+    {
+      "position": [
+        18.6,
+        9.76,
+        106
+      ],
+      "ref": "fire_escape2_landing2_step7",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        5
+      ]
+    },
+    {
+      "position": [
+        19.4,
+        10.12,
+        106
+      ],
+      "ref": "fire_escape2_landing2_step8",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        5
+      ]
+    },
+    {
+      "position": [
+        20.2,
+        10.48,
+        106
+      ],
+      "ref": "fire_escape2_landing2_step9",
+      "type": "cube",
+      "texture": "textures/metal.jpeg",
+      "size": [
+        0.8,
+        0.36,
+        5
+      ]
+    },
+    {
+      "type": "obj",
+      "position": [13, 4, 80],
+      "model": "models/bbq.obj",
+      "ref": "bbq",
+      "color": [70, 70, 70]
+    },
+    {
+      "type": "cube",
+      "position": [
+        60.5,
+        1,
+        0
+      ],
+      "size": [
+        2.5,
+        4.5,
+        2.5
+      ],
+      "ref": "storage",
+      "texture": "textures/concrete.jpeg"
+    }
+  ],
+  "prices": {
+    "floor": [
+      28704,
+      "Artificial Turfing"
+    ],
+    "fence1": [
+      15625,
+      "Wooden Fence (6' high)"
+    ],
+    "fence2": [
+      15625,
+      "Wooden Fence (6' high)"
+    ],
+    "fence3": [
+      15625,
+      "Wooden Fence (6' high)"
+    ],
+    "fence4": [
+      15625,
+      "Wooden Fence (6' high)"
+    ],
+    "deck1": [
+      14144.25,
+      "Wooden Deck (3' high)"
+    ],
+    "water": [
+      10235,
+      "Pool (5' ft deep)"
+    ],
+    "water2": [
+      "Hot Tub"
+    ],
+    "potter1": [
+      "Potter"
+    ],
+    "wall2": [
+      "Building Wall"
+    ],
+    "potter2": [
+      "Potter"
+    ],
+    "bbq": [
+      349,
+      "BBQ"
+    ],
+    "storage": [
+      "Storage Area"
+    ]
+  },
+  "spawn": [
+    20.4,
+    10.52,
+    108
+  ]
+}

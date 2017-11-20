@@ -1,0 +1,202 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/css/loading-spinner.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- This will get moved. Soon-ish(tm) -->
+    <style>
+        .affix {
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+        
+        #button-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        #sub-button {
+            transform: translateX(-15px) translateY(-15px);
+        }
+        
+        .round-button {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+        
+        {
+            % include 'login-modal-style.html' %
+        }
+    </style>
+</head>
+
+<body>
+    <div id="jumbotron-height-wrapper">
+        <div class="jumbotron" style="margin-bottom: 1px">
+            <h1 class="text-center">Manage your account here, such as changing your password</h1>
+            <p class="text-right small" style="transform: translateX(-5px);">(or to just look at my <em>amazing</em> web design)</p>
+        </div>
+    </div>
+    {% include 'navbar.html' %} {% include 'login-modal.html' %} {% include 'modals/yesno-modal.html' %}
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js'></script>
+    <script>
+    </script>
+    <div class="container">
+        {% include 'flash.html' %}
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <h2>{{ get_username()[1:-1] }}'s Profile</h2></div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="fullname">Full Name: </label>
+
+                    <input class="form-control" type="text" id="fullname" readonly name="fullname" value="{{ get_fullname()[1:-1] }}">
+
+                </div>
+                <div class="form-group">
+                    <label for="username">Username: </label>
+                    <div class="input-group">
+
+                        <input class="form-control" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="username" name="username" value="{{ get_username()[1:-1] }}">
+                        <span class="input-group-btn">
+                                <button class="btn btn-success" type="button" disabled id="set_change_username">Save</button>
+                            </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3>Change password</h3>
+                            </div>
+                            <div class="panel-body text-center">
+                                <p><strong>Click the button to change your password: </strong>
+                                    <br />
+                                    <button type="button" class="btn btn-success text-center" id="change_password">Change password</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="media">
+                            <div class="media-left">
+                                <img class="media-object img-circle icon-user" src="/user_icon/{{ get_id()[1:-1] }}" alt="user icon">
+                            </div>
+                            <div class="media-body">
+                                <form id="change-icon" class="form-inline" enctype="multipart/form-data">
+                                    <div id="form-group">
+                                        <label for="icon-change">Change your icon</label>
+                                        <input type="file" id="icon-change" name="theicon">
+                                        <p class="help-block">Icons can be 50x50 or 100x100 in size, and in .png format</p>
+                                    </div>
+                                    <button class="btn btn-block btn-success" type="button" id="change_icon_set">Change icon</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">User pages</div>
+                    <div class="panel-body">
+                        <div class="btn-group">
+                            <button class="btn btn-danger" type="button" onclick="location.replace('/account/deleted_blogs')">View my deleted blog posts</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $("#username").on('input', function () { $("#set_change_username").attr("disabled", false); });
+            
+            $("#set_change_username").click(function () {
+               var value=$("#username").val(); 
+               
+               if (value == ''){
+                   $("#username").tooltip({"title": "Please type a username", "placement": "bottom"});
+                   $("#username").tooltip('show');
+                   $("#username").one("hidden.bs.tooltip", function () {$(this).tooltip("destroy");});
+               }
+               else {
+                   $("#set_change_username").attr("disabled", true);
+                   $("#set_change_username").html("Saving...");
+                   $.ajax({
+                      url: "/user/change_username",
+                      data: {'new': value},
+                      method: 'post',
+                      success: function (r, j, a){
+                          $("#set_change_username").html("Saved!");
+                          setTimeout(function () {
+                              $("#set_change_username").html("Save");
+                          }, 750);
+                      },
+                      error: function (a , b, c){
+                          $("#set_change_username").html("Could not save.");
+                          setTimeout(function () {
+                              $("#set_change_username").html("Save");
+                          }, 750);
+                      }
+                   });
+               }
+            });
+            
+            $("#change_icon_set").click(function () {
+                if ($("#icon-change").val() == ''){
+                    $("#icon-change").tooltip({"title": "Please choose a new icon", "placement": "bottom"});
+                    $("#icon-change").tooltip('show');
+                    $("#icon-change").one("hidden.bs.tooltip", function () {$(this).tooltip("destroy");});
+                }
+                else {
+                    var _URL = window.URL || window.webkitURL;
+                    var t = $("#icon-change");
+                    var f, i;
+                    f = t.prop('files')[0];
+                    var ta = f.name.split(".")[f.name.split(".").length - 1];
+                    if (ta != 'png'){
+                       $("#icon-change").tooltip({"title": "We only support png images at the moment.", "placement": "bottom"});
+                        $("#icon-change").tooltip('show');
+                        $("#icon-change").one("hidden.bs.tooltip", function () {$(this).tooltip("destroy");});
+                    }
+                    else {
+                    i = new Image();
+                    i.onload = function () {
+                        if ((this.width == 50 && this.height == 50 ) || (this.width == 100 && this.height == 100 )){
+                            var data = new FormData();
+                            data.append('theicon', f);
+                            $.ajax({
+                               url: '/user/change_icon' ,
+                               type: 'POST',
+                               data: data,
+                               success: function (a, b, c){
+                                   location.reload();
+                               },
+                               error: function (a, b, c){
+                                   location.reload();
+                               },
+                               cache: false,
+                                contentType: false,
+                                processData: false
+                            });
+                        }
+                        else {
+                            $("#icon-change").tooltip({"title": "That image is of an invalid size. Please correct it.", "placement": "bottom"});
+                            $("#icon-change").tooltip('show');
+                            $("#icon-change").one("hidden.bs.tooltip", function () {$(this).tooltip("destroy");});
+                        }
+                    };
+                    i.src = _URL.createObjectURL(f);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

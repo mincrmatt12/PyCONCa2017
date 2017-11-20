@@ -1,0 +1,16 @@
+grass_texture = RequireTexture("textures/grass.png")
+deck_texture = RequireTexture("textures/deck.png")
+
+status = True
+
+when Player.Move do
+    distance = ObjectDistanceFromPlayer("deck1")
+    if distance <= 5 and status == False do
+        BoxSetTexture("deck1", grass_texture)
+        status = True
+    end
+    elseif distance > 5 and status == True do
+        BoxSetTexture("deck1", deck_texture)
+        status = False
+    end
+end

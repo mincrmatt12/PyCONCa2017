@@ -1,0 +1,325 @@
+<script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+<div id="forum-editor-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header edit-modal-bgcolor">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><span class="glyphicon glyphicon-pencil"></span> Create Thread</h4>
+        </div>
+        <div class="modal-body">
+            <form action="/forum/create_thread" method="post" id="post-form">
+                <input type="hidden" value="" name="section" id="sectionvar">
+                <input type="hidden" value="" name="perms" id="permvar">
+                <div class="form-group">
+                    <label for="title">Thread title</label>
+                    <input id ="title" type="text" class="form-control" name="title" placeholder="Enter a post title">
+                </div>
+                <div class="form-group">
+                    <label for="tags">Thread tags</label>
+                    <input id="tags" type="text" class="form-control" name="tags" placeholder="Enter post tags, seperated by ; (for example 'Project;Important')">
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2>Thread Permissions</h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="allow_comments" id="allow_comments_box"> Allow users to comment on this thread
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <textarea id="editor-tmce" name="body"></textarea>
+                <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Go</button>
+                <p class="text-center text-danger" id="error-message-post">Please enter a thread title.</p>
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+        </div>
+        </div>
+    </div>
+</div>
+<div id="forum-edit-editor-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header edit-modal-bgcolor">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"><span class="glyphicon glyphicon-pencil"></span> Create Thread</h4>
+        </div>
+        <div class="modal-body">
+            <form action="/forum/create_thread" method="post" id="post-form2">
+                <div class="form-group">
+                    <label for="title">Thread title</label>
+                    <input id ="title2" type="text" class="form-control" name="title" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="tags">Thread tags</label>
+                    <input id="tags2" type="text" class="form-control" name="tags" placeholder="Enter post tags, seperated by ; (for example 'Project;Important')">
+                </div>
+                
+                <textarea id="editor-tmce2" name="body"></textarea>
+                <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-ok"></span> Go</button>
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+        </div>
+        </div>
+    </div>
+</div>
+<div id="processingModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header login-modal-bgcolor">
+                <h4 class="modal-title" id="modal-title-login"><span class="glyphicon glyphicon-pencil"></span> Posting...</h4>
+            </div>
+            <div class="modal-body">
+                <p id="messageprocessModal" class="text-center">Please wait...</p>
+                <div class="windows8" id="spinner2"><div class="wBall" id="wBall_1"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_2"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_3"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_4"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_5"><div class="wInnerBall"></div></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    tinymce.init({
+        selector: "#editor-tmce2",
+        plugins: ["charmap", "searchreplace", "textcolor", "hr", "table", "link", "image", "imagetools"],
+        extended_valid_elements: "table[class=table]",
+        
+        setup: function(ed) {
+            ed.addButton('addimagefromlocal', {
+                title: 'Add image from your computer',
+                icon: false,
+                label: 'Upload image',
+                text: 'Upload image',
+                onclick: function() {
+                    var t = $('<input type="file" name="filesin" style="display: none" >');
+                    t.appendTo("body");
+                    t.click();
+                    t.change(function () {
+                        var files = t.prop("files");
+                        var f = files[0];
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var newhtml = ['<img src="', e.target.result, '"/>'].join('');
+                            ed.focus();
+                            ed.selection.setContent(newhtml);
+                        };
+                        reader.readAsDataURL(f);
+                    });
+                        
+                        
+                    
+                }
+            });
+        },
+        style_formats: [
+            {title: "Headers", items: [
+                {title: "Header 1", format: "h1"},
+                {title: "Header 2", format: "h2"},
+                {title: "Header 3", format: "h3"},
+                {title: "Header 4", format: "h4"},
+                {title: "Header 5", format: "h5"},
+                {title: "Header 6", format: "h6"}
+            ]},
+            {title: "Inline", items: [
+                {title: "Bold", icon: "bold", format: "bold"},
+                {title: "Italic", icon: "italic", format: "italic"},
+                {title: "Underline", icon: "underline", format: "underline"},
+                {title: "Strikethrough", icon: "strikethrough", format: "strikethrough"},
+                {title: "Superscript", icon: "superscript", format: "superscript"},
+                {title: "Subscript", icon: "subscript", format: "subscript"},
+                {title: "Code", icon: "code", format: "code"}
+            ]},
+            {title: "Blocks", items: [
+                {title: "Paragraph", format: "p"},
+                {title: "Blockquote", format: "blockquote"},
+                {title: "Div", format: "div"},
+                {title: "Pre", format: "pre"}
+            ]},
+            {title: "Alignment", items: [
+                {title: "Left", icon: "alignleft", format: "alignleft"},
+                {title: "Center", icon: "aligncenter", format: "aligncenter"},
+                {title: "Right", icon: "alignright", format: "alignright"},
+                {title: "Justify", icon: "alignjustify", format: "alignjustify"}
+            ]},
+            {title: "Table", items: [
+                {title: "Borders", selector: "table", classes: "table table-bordered"},
+                {title: "Zebra", selector: "table", classes: "table table-striped"},
+                {title: "Both", selector: "table", classes: "table table-bordered table-striped"},
+            ]}
+        ],
+        toolbar1: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+        toolbar2: "link image addimagefromlocal | hr table | forecolor backcolor | charmap | searchreplace"
+            
+    });
+    tinymce.init({
+        selector: "#editor-tmce",
+        plugins: ["charmap", "searchreplace", "textcolor", "hr", "table", "link", "image", "imagetools"],
+        extended_valid_elements: "table[class=table]",
+
+        setup: function(ed) {
+            ed.addButton('addimagefromlocal', {
+                title: 'Add image from your computer',
+                icon: false,
+                label: 'Upload image',
+                text: 'Upload image',
+                onclick: function() {
+                    var t = $('<input type="file" name="filesin" style="display: none" >');
+                    t.appendTo("body");
+                    t.click();
+                    t.change(function () {
+                        var files = t.prop("files");
+                        var f = files[0];
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var newhtml = ['<img src="', e.target.result, '"/>'].join('');
+                            ed.focus();
+                            ed.selection.setContent(newhtml);
+                        };
+                        reader.readAsDataURL(f);
+                    });
+                        
+                        
+                    
+                }
+            });
+        },
+        style_formats: [
+            {title: "Headers", items: [
+                {title: "Header 1", format: "h1"},
+                {title: "Header 2", format: "h2"},
+                {title: "Header 3", format: "h3"},
+                {title: "Header 4", format: "h4"},
+                {title: "Header 5", format: "h5"},
+                {title: "Header 6", format: "h6"}
+            ]},
+            {title: "Inline", items: [
+                {title: "Bold", icon: "bold", format: "bold"},
+                {title: "Italic", icon: "italic", format: "italic"},
+                {title: "Underline", icon: "underline", format: "underline"},
+                {title: "Strikethrough", icon: "strikethrough", format: "strikethrough"},
+                {title: "Superscript", icon: "superscript", format: "superscript"},
+                {title: "Subscript", icon: "subscript", format: "subscript"},
+                {title: "Code", icon: "code", format: "code"}
+            ]},
+            {title: "Blocks", items: [
+                {title: "Paragraph", format: "p"},
+                {title: "Blockquote", format: "blockquote"},
+                {title: "Div", format: "div"},
+                {title: "Pre", format: "pre"}
+            ]},
+            {title: "Alignment", items: [
+                {title: "Left", icon: "alignleft", format: "alignleft"},
+                {title: "Center", icon: "aligncenter", format: "aligncenter"},
+                {title: "Right", icon: "alignright", format: "alignright"},
+                {title: "Justify", icon: "alignjustify", format: "alignjustify"}
+            ]},
+            {title: "Table", items: [
+                {title: "Borders", selector: "table", classes: "table table-bordered"},
+                {title: "Zebra", selector: "table", classes: "table table-striped"},
+                {title: "Both", selector: "table", classes: "table table-bordered table-striped"},
+            ]}
+        ],
+        toolbar1: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+        toolbar2: "link image addimagefromlocal | hr table | forecolor backcolor | charmap | searchreplace"
+            
+    });
+    $("#error-message-post").hide();
+</script>
+<script>
+    $("#title").on("input", function () {
+        $("#error-message-post").hide(600); 
+    });
+    
+    $("#forum-edit-editor-modal").on("show.bs.modal", function() {
+        $("#title2").val(title);
+        $("#tags2").val(tags);
+        tinymce.get('editor-tmce2').setContent(body);
+    });
+    
+    $("#post-form2").submit(function () {
+       $("#forum-edit-editor-modal").modal("hide");
+       $("#forum-edit-editor-modal").one("hidden.bs.modal", function () {
+                $("#processingModal").modal();
+                $.ajax({
+                    url: "/forum/edit/" + id,
+                    method: "post",
+                    data: $("#post-form2").serialize(),
+                    success: function (j, q, r) {
+                        $("#spinner2").addClass("spinner-hide");
+                        $("#messageprocessModal").html("Successfully edited post!");
+                        
+                        setTimeout(function() {location.reload();}, 1000);
+                    },
+                    error: function (r, s, e){
+                        if (r.status == 403){
+                            $("#spinner2").addClass("spinner-hide");
+                            $("#messageprocessModal").html("Not elevated or not logged in");
+                        }
+                        else {
+                            $("#spinner2").addClass("spinner-hide");
+                            $("#messageprocessModal").html("Could not edit post.");
+                        }
+                        setTimeout(function() {location.reload();}, 2000);
+                    }
+                    
+                });
+            });
+        return false;
+    });
+    
+    $("#post-form").submit(function () {
+        var title = $("#title").val();
+        var tags = $("#tags").val();
+        
+        if (title == ""){
+            $("#error-message-post").show(600);
+            return false;
+        }
+        
+        $('input[type=checkbox]').attr("disabled", true)
+        var permy = "";
+        if ($("#allow_comments_box").prop("checked")){
+            permy = permy + "comment;"
+        }
+        $("#permvar").attr("value", permy)
+        $("#sectionvar").attr("value", document.location.href.split("/")[document.location.href.split("/").length-1])
+        
+        
+            $("#forum-editor-modal").modal("hide");
+            $("#forum-editor-modal").one("hidden.bs.modal", function () {
+                $("#processingModal").modal();
+                $.ajax({
+                    url: "/forum/create_thread",
+                    method: "post",
+                    data: $("#post-form").serialize(),
+                    success: function (j, q, r) {
+                        $("#spinner2").addClass("spinner-hide");
+                        $("#messageprocessModal").html("Successfully posted!");
+                        
+                        setTimeout(function() {location.reload();}, 1000);
+                    },
+                    error: function (r, s, e){
+                        if (r.status == 403){
+                            $("#spinner2").addClass("spinner-hide");
+                            $("#messageprocessModal").html("Not elevated or not logged in");
+                        }
+                        else {
+                            $("#spinner2").addClass("spinner-hide");
+                            $("#messageprocessModal").html("Could not post.");
+                        }
+                        setTimeout(function() {location.reload();}, 2000);
+                    }
+                    
+                });
+            });
+        
+        return false;
+    });
+</script>

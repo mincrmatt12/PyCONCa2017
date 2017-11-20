@@ -1,0 +1,42 @@
+<div id="yesnoModal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="yesnoHeader"></h2>
+            </div>
+            <div class="modal-body">
+                <p id="yesnoMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-success" id="yesnoYesButton">Yes</button>
+                    <button type="button" class="btn btn-danger" id="yesnoNoButton">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // API: openYesNo(title, message) - opens yesno
+    // events on #yesnoModal:
+    //     yesno.yes - Clicked yes
+    //     yesno.no - Clicked no
+    
+    function openYesNo(title, message){
+        $("#yesnoHeader").html("");
+        $("#yesnoMessage").html("");
+        $("#yesnoHeader").html(title);
+        $("#yesnoMessage").html(message);
+        $("#yesnoModal").modal();
+    }
+    
+    $("#yesnoYesButton").click(function () {
+        $("#yesnoModal").trigger("yesno.yes");
+        $("#yesnoModal").modal("hide");
+    });
+    $("#yesnoNoButton").click(function () {
+        $("#yesnoModal").trigger("yesno.no");
+        $("#yesnoModal").modal("hide");
+    });
+</script>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/static/css/loading-spinner.css">
+        <link rel="stylesheet" href="/static/css/loading-modal.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    </head>
+    <body>
+        <div id="jumbotron-height-wrapper">
+            <div class="jumbotron" style="margin-bottom: 1px">
+                <h1 class="text-center">Use the forums to post stuff, as long as it doesn't violate the accetable use policy.</h1>
+                <p class="text-right small" style="transform: translateX(-5px);">(well, we're not as strict here, but still, don't go posting stuff that is inappropriate)</p>
+            </div>
+        </div>    
+        <style>
+            .affix {
+              top: 0;
+              z-index:1000;
+              width: 100%;
+            }
+            #button-container {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+            #sub-button {
+                transform: translateX(-15px) translateY(-15px);
+                
+            }
+            
+            .round-button {
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+            }
+            {% include 'login-modal-style.html' %}
+        </style>
+        {% include 'navbar.html' %}
+        {% include 'login-modal.html' %}
+        {% include 'forum-editor-modal.html' %}
+        <script src="/static/js/jumbotron-height-fix.js"></script>
+        
+        <div class="container">
+            
+                            <div class="list-group" id="thread-container">
+                                <h1 class="list-group-item active">{{ section }}</h1>
+                                
+                                <div class="list-group-item small" id="loadingMessage">Loading threads... <div class="windows8"><div class="wBall" id="wBall_1"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_2"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_3"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_4"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_5"><div class="wInnerBall"></div></div></div></p>
+                            </div>
+                       
+                       
+        </div>
+        <script>
+            function scrollToTop(){
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 650);
+            }
+            {% autoescape false %}
+            var is_logged_in = {{ get_is_logged_in() }};
+            var username = {{ get_username() }};
+            var authlevel = {{ get_authlevel() }};
+            {% endautoescape %}
+        </script>
+        <script>
+            $("#fq_navlink").addClass("active");    
+            var section = document.location.href.split("/")[document.location.href.split("/").length-1];
+            var page = 0;
+            var endofpages = false;
+            var cooldowntimer = null;
+            
+            var ecount = 0;
+            
+            function scrollHandle(e) {
+                clearTimeout(cooldowntimer);
+                cooldowntimer = setTimeout(loadAndAddThreads, 100);
+            }
+            
+            function resumeLoading(){
+                ecount = 0;
+                $("#loadingMessage").html('Loading threads... <div class="windows8"><div class="wBall" id="wBall_1"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_2"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_3"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_4"><div class="wInnerBall"></div></div><div class="wBall" id="wBall_5"><div class="wInnerBall"></div></div></div>');
+                $(window).scroll();
+            }
+            
+            function loadAndAddThreads(){
+                if ($(window).scrollTop() + $(window).innerHeight() > $(document).height() - 30) {
+                    if (endofpages){
+                        $("#loadingMessage").html("No more threads!")
+                        $(window).off('scroll', scrollHandle)
+                    }
+                    else {
+                        $.ajax({
+                            url: '/forum/get_threads/' + section + '/' + page,
+                            success: function (r, s, j) {
+                                if (r == ""){
+                                    endofpages = true;
+                                    $("#loadingMessage").html("No more threads!")
+                                }
+                                else {
+                                    page += 1;
+                                    $(r).insertBefore("#loadingMessage");
+                                    $('[data-toggle="tooltip"]').tooltip(); 
+                                    if (!$(window).height() < $(document).height()){
+                                        if (ecount < 3){
+                                            setTimeout(function(){$(window).scroll();}, 200);
+                                            ecount += 1;
+                                        }
+                                        else {
+                                            $("#loadingMessage").html('Your screen is too big! Click <a href="#" onclick="resumeLoading()">here</a> to continue loading posts')
+                                        }
+                                    }
+                                }
+                            }
+                            });
+                    }
+                }
+            }
+            $(window).on('scroll', scrollHandle);
+            $(document).ready($(window).scroll());
+        </script>
+        </div>
+        <div id="button-container">
+            <div class="pull-right" id="sub-button">
+                <button id="create-post-start-button" type="button" class="btn btn-primary round-button" data-toggle="tooltip" data-placement="top" title="Create a new blog post"><span class="glyphicon glyphicon-plus"></span></button>
+            </div>
+        </div>
+        <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip(); 
+        });
+        
+        
+        </script>
+        <div class="clearfix"></div>
+        <script>
+            if (is_logged_in == false){
+                $("#button-container").css("display", "none");
+            }
+            else if (is_logged_in == true && (authlevel & 2) != 2){
+                 $("#button-container").css("display", "none");
+            }
+            else {
+                $("#create-post-start-button").click(function () {
+                   $("#forum-editor-modal").modal(); 
+                   
+                });
+            }
+        </script>
+    </body>
+        
